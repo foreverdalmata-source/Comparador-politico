@@ -1,8 +1,3 @@
-# Código estilo landing page premium
-
-Reemplaza todo tu `app.py` por este código para que se vea mucho más parecido a la imagen que quieres:
-
-```python
 import streamlit as st
 
 st.set_page_config(page_title="Voto Informado 2026", layout="wide")
@@ -184,6 +179,7 @@ st.markdown('<div class="hero">', unsafe_allow_html=True)
 st.markdown('<div class="badge">INFORMACIÓN 100% VERIFICADA POR IA</div>', unsafe_allow_html=True)
 st.markdown('<h1>No des tu voto a cualquiera</h1>', unsafe_allow_html=True)
 st.markdown('<h2>PIENSA!</h2>', unsafe_allow_html=True)
+
 st.markdown('''
 <p>
 Compara los planes de gobierno de los 36 partidos políticos del Perú.<br>
@@ -237,6 +233,3 @@ Esta herramienta utiliza inteligencia artificial para sintetizar información de
 ''', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
-```
-
-Este código ya se parece mucho más a la captura que quieres: encabezado arriba, gran mensaje central, tarjeta de búsqueda, etiquetas redondeadas y botón elegante.
