@@ -1,235 +1,278 @@
 import streamlit as st
 
-st.set_page_config(page_title="Voto Informado 2026", layout="wide")
+st.set_page_config(
+    page_title="Comparador Político",
+    layout="wide"
+)
 
 st.markdown("""
 <style>
-
-.stApp {
-    background: linear-gradient(to bottom, #f8f9fc, #eef2f7);
+body {
+    background-color: #f5f7fb;
 }
 
-.block-container {
-    padding-top: 1rem;
-    max-width: 1200px;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0 20px 0;
-    font-size: 14px;
-    color: #6b7280;
-}
-
-.logo {
-    font-size: 28px;
-    font-weight: 800;
-    color: #2563eb;
-}
-
-.menu {
-    display: flex;
-    gap: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #6b7280;
-}
-
-.badge {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background-color: #eef4ff;
-    color: #2563eb;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1px solid #dbe7ff;
-    margin-bottom: 25px;
-}
-
-.hero {
-    text-align: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
-
-.hero h1 {
-    font-size: 72px;
+.main-title {
+    font-size: 52px;
     font-style: italic;
+    font-weight: 400;
     color: #111827;
-    margin-bottom: 0;
-    line-height: 1.1;
+    margin-bottom: 30px;
 }
 
-.hero h2 {
-    font-size: 76px;
-    color: #2563eb;
-    font-weight: 800;
-    margin-top: -10px;
-    margin-bottom: 25px;
+.search-box {
+    margin-bottom: 30px;
 }
 
-.hero p {
+.section-title {
+    font-size: 16px;
+    font-weight: 700;
     color: #6b7280;
-    font-size: 20px;
-    max-width: 700px;
-    margin: auto;
-    line-height: 1.7;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
-    margin-bottom: 60px;
-}
-
-.stat-box {
-    text-align: center;
-    color: #6b7280;
-    font-size: 13px;
-}
-
-.search-card {
-    background: white;
-    max-width: 650px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 24px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+.party-card {
+    background-color: white;
     border: 1px solid #e5e7eb;
-}
-
-.card-title {
-    font-size: 34px;
-    font-style: italic;
-    color: #111827;
+    border-radius: 18px;
+    padding: 22px;
     margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    height: 100%;
 }
 
-.stTextInput > div > div > input {
-    border-radius: 14px;
-    padding: 14px;
-    border: 1px solid #d1d5db;
-}
-
-.tema-label {
-    margin-top: 20px;
-    margin-bottom: 12px;
-    color: #6b7280;
-    font-size: 13px;
+.party-title {
+    font-size: 20px;
     font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
 }
 
-.chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.chip {
-    background: #f3f4f6;
-    color: #4b5563;
-    padding: 8px 14px;
+.badge-high {
+    background-color: #eaf8ee;
+    color: #16a34a;
+    padding: 6px 12px;
     border-radius: 999px;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 12px;
 }
 
-.stButton > button {
-    width: 100%;
-    background: #6b7280;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 16px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.info-box {
-    margin-top: 20px;
-    background: #eef4ff;
-    border: 1px solid #dbe7ff;
-    border-radius: 12px;
-    padding: 14px;
-    color: #2563eb;
+.badge-medium {
+    background-color: #fff7e6;
+    color: #d97706;
+    padding: 6px 12px;
+    border-radius: 999px;
     font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 12px;
 }
 
+.badge-low {
+    background-color: #fdecec;
+    color: #dc2626;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.score-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    background-color: #2563eb;
+    border-radius: 999px;
+}
+
+.score-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #6b7280;
+    min-width: 55px;
+}
+
+.detail-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.proposal-text {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1f2937;
+}
+
+.compare-button button {
+    background-color: #6b7280;
+    color: white;
+    border-radius: 14px;
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+}
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('''
-<div class="navbar">
-    <div class="logo">VOTOINFORMADO2026</div>
-    <div class="menu">
-        <span>PLANES</span>
-        <span>PARTIDOS</span>
-        <span>METODOLOGÍA</span>
-    </div>
-</div>
-''', unsafe_allow_html=True)
-
-st.markdown('<div class="hero">', unsafe_allow_html=True)
-st.markdown('<div class="badge">INFORMACIÓN 100% VERIFICADA POR IA</div>', unsafe_allow_html=True)
-st.markdown('<h1>No des tu voto a cualquiera</h1>', unsafe_allow_html=True)
-st.markdown('<h2>PIENSA!</h2>', unsafe_allow_html=True)
-
-st.markdown('''
-<p>
-Compara los planes de gobierno de los 36 partidos políticos del Perú.<br>
-Análisis profundo, citas textuales y visualizaciones de datos para un voto consciente.
-</p>
-''', unsafe_allow_html=True)
-
-st.markdown('''
-<div class="stats">
-    <div class="stat-box">📘<br>36 PLANES</div>
-    <div class="stat-box">📊<br>ANÁLISIS DATA</div>
-    <div class="stat-box">☑️<br>VOTO LIBRE</div>
-</div>
-''', unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown('<div class="search-card">', unsafe_allow_html=True)
-st.markdown('<div class="card-title">¿Qué quieres comparar hoy?</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">¿Qué quieres comparar hoy?</div>', unsafe_allow_html=True)
 
 tema = st.text_input(
     "",
-    placeholder="Ej: Reforma de pensiones, Seguridad ciudadana, Minería..."
+    placeholder="Ej: Seguridad Ciudadana, Educación, Salud..."
 )
 
-st.markdown('<div class="tema-label">EJE TEMÁTICO:</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">EJE TEMÁTICO:</div>', unsafe_allow_html=True)
 
-st.markdown('''
-<div class="chips">
-    <div class="chip">General</div>
-    <div class="chip">Economía y Empleo</div>
-    <div class="chip">Seguridad Ciudadana</div>
-    <div class="chip">Educación</div>
-    <div class="chip">Salud</div>
-    <div class="chip">Lucha contra la Corrupción</div>
-    <div class="chip">Infraestructura</div>
-    <div class="chip">Medio Ambiente</div>
-    <div class="chip">Desarrollo Social</div>
-    <div class="chip">Relaciones Exteriores</div>
-</div>
-''', unsafe_allow_html=True)
+col1, col2, col3, col4, col5 = st.columns(5)
 
-if st.button("Comparar Propuestas"):
-    st.subheader(f"Resultados para: {tema}")
-    st.write("Aquí aparecerán las propuestas comparadas.")
+with col1:
+    st.button("General")
+with col2:
+    st.button("Economía y Empleo")
+with col3:
+    st.button("Seguridad Ciudadana")
+with col4:
+    st.button("Educación")
+with col5:
+    st.button("Salud")
 
-st.markdown('''
-<div class="info-box">
-Esta herramienta utiliza inteligencia artificial para sintetizar información de los planes de gobierno oficiales presentados ante el JNE. Siempre verifica las fuentes citadas.
-</div>
-''', unsafe_allow_html=True)
+col6, col7, col8, col9, col10 = st.columns(5)
 
-st.markdown('</div>', unsafe_allow_html=True)
+with col6:
+    st.button("Lucha contra la Corrupción")
+with col7:
+    st.button("Infraestructura")
+with col8:
+    st.button("Medio Ambiente")
+with col9:
+    st.button("Desarrollo Social")
+with col10:
+    st.button("Relaciones Exteriores")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+comparar = st.button("Comparar Propuestas")
+
+if comparar:
+
+    propuestas = {
+        "Seguridad Ciudadana": [
+            {
+                "partido": "Fuerza Popular",
+                "propuesta": "Enfoque en mano dura y protección legal al policía. Propone fortalecer la investigación criminal y la reforma del sistema de justicia penal para evitar la liberación de delincuentes.",
+                "claridad": "Alto",
+                "puntaje": 85
+            },
+            {
+                "partido": "Alianza para el Progreso",
+                "propuesta": "Propone un enfoque municipalista articulando el Serenazgo con la PNP, con fuerte inversión en tecnología de videovigilancia y programas de prevención juvenil.",
+                "claridad": "Alto",
+                "puntaje": 78
+            },
+            {
+                "partido": "Renovación Popular",
+                "propuesta": "Propone la intervención de las Fuerzas Armadas en apoyo a la PNP de manera sostenida, expulsión inmediata de extranjeros delincuentes y construcción de megacárceles.",
+                "claridad": "Alto",
+                "puntaje": 82
+            },
+            {
+                "partido": "Podemos Perú",
+                "propuesta": "Centrado en la creación de unidades de flagrancia y la reforma de la ley de defensa propia. Propone mayor presencia policial efectiva mediante la eliminación del servicio 24x24.",
+                "claridad": "Medio",
+                "puntaje": 70
+            },
+            {
+                "partido": "Perú Libre",
+                "propuesta": "Enfoque en las causas estructurales del delito y la democratización de la seguridad a través de rondas urbanas y campesinas coordinadas con el Estado.",
+                "claridad": "Bajo",
+                "puntaje": 45
+            },
+            {
+                "partido": "Avanza País",
+                "propuesta": "Propone la participación del sector privado en la gestión de penales y la tecnificación de la inteligencia para desarticular bandas de extorsión.",
+                "claridad": "Medio",
+                "puntaje": 65
+            },
+            {
+                "partido": "Partido Morado",
+                "propuesta": "Prioriza el fortalecimiento institucional de la PNP, la reforma judicial y la implementación de sistemas de denuncia digital y patrullaje inteligente.",
+                "claridad": "Alto",
+                "puntaje": 75
+            },
+            {
+                "partido": "Acción Popular",
+                "propuesta": "Propone fortalecer el Serenazgo, ampliar las comisarías de barrio y promover programas de reinserción social para jóvenes en riesgo.",
+                "claridad": "Medio",
+                "puntaje": 60
+            },
+            {
+                "partido": "Somos Perú",
+                "propuesta": "Busca integrar la seguridad ciudadana con programas de desarrollo social y recuperación de espacios públicos.",
+                "claridad": "Medio",
+                "puntaje": 62
+            }
+        ]
+    }
+
+    if tema in propuestas:
+
+        st.markdown("## Comparación por Partido")
+
+        cols = st.columns(3)
+
+        for i, p in enumerate(propuestas[tema]):
+
+            claridad = p["claridad"]
+
+            if claridad == "Alto":
+                badge_class = "badge-high"
+            elif claridad == "Medio":
+                badge_class = "badge-medium"
+            else:
+                badge_class = "badge-low"
+
+            with cols[i % 3]:
+                st.markdown(f"""
+                <div class="party-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <div class="party-title">{p['partido']}</div>
+                        <div class="{badge_class}">Claridad: {p['claridad']}</div>
+                    </div>
+
+                    <div class="score-row">
+                        <div class="score-bar">
+                            <div class="score-fill" style="width:{p['puntaje']}%;"></div>
+                        </div>
+                        <div class="score-text">{p['puntaje']}/100</div>
+                    </div>
+
+                    <div class="detail-label">NIVEL DE DETALLE</div>
+
+                    <div class="proposal-text">
+                        {p['propuesta']}
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+    else:
+        st.warning("Escribe exactamente: Seguridad Ciudadana")
